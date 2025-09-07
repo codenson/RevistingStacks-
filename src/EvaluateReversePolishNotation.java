@@ -1,5 +1,4 @@
 
-
 import java.util.Stack;
 
 /*
@@ -16,18 +15,57 @@ public class EvaluateReversePolishNotation {
         System.out.println(evalRPN(new String[]{"2", "1", "+", "3", "*"}));
         System.out.println(evalRPN(new String[]{"4", "13", "5", "/", "+"}));
         System.out.println(evalRPN(new String[]{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}));
-         System.out.println(evalRPN(new String[]{"18"}));
-        
-         
-       
-         
+//         System.out.println(evalRPN(new String[]{"18"}));
 
     }
 
     public static int evalRPN(String[] tokens) {
         int tot = Integer.parseInt(tokens[0]);;
         Stack<String> st = new Stack();
-        int val = 0; 
+        int val = 0;
+        String operand = "+-*/";
+
+        for (String s : tokens) {
+
+            if (!operand.contains(s)) {
+                st.push(s);
+
+            } else {
+                int val2 = Integer.parseInt(st.pop());
+                int val1 = Integer.parseInt(st.pop());
+                if (s.equals("+")) {
+                    tot = val2 + val1;
+                    st.push(String.valueOf(tot));
+
+                } else if (s.equals("-")) {
+                    tot = val1 - val2;
+                    st.push(String.valueOf(tot));
+
+                } else if (s.equals("*")) {
+                    tot = val1 * val2;
+                    st.push(String.valueOf(tot));
+
+                } else {
+
+                    if (val2 != 0) {
+                        tot = val1 / val2;
+                        st.push(String.valueOf(tot));
+                    }
+
+                }
+
+            }
+
+        }
+
+        return tot;
+
+    }
+
+    public static int evalRPN1(String[] tokens) {
+        int tot = Integer.parseInt(tokens[0]);;
+        Stack<String> st = new Stack();
+        int val = 0;
 
         for (String s : tokens) {
 
